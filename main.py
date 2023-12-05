@@ -95,7 +95,9 @@ def update_opcua(hopper):
 
 
 dobot = Dobot(config_file['dobot']['port'])  # instantiate object of Dobot class
-camera = Camera(source=1)  # instantiate object of Camera class
+camera = Camera(config_file['camera']['source'],
+                config_file['camera']['width'],
+                config_file['camera']['height'])  # instantiate object of Camera class
 opcua_connection = Opcua(config_file['opcua']['url'],
                          config_file['opcua']['user'],
                          config_file['opcua']['psw'],
@@ -113,9 +115,7 @@ dobot.set_home_params(
 )
 
 # set end effector type
-dobot.set_end_effector_type(
-    config_file['dobot']['end_effector_type'], 0
-)
+dobot.set_end_effector_type(config_file['dobot']['end_effector_type'], 0)
 
 # move to home position
 dobot.set_ptp_cmd(1,
