@@ -19,7 +19,7 @@ def save_image(img, file_name):
 
 
 # get color name from image
-def get_color_name(img, color_space='hsv'):
+def get_color_name(img, yaml_colors, color_space='hsv'):
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # convert BGR image to RGB color space
     average_color = np.mean(img_rgb, axis=(0, 1))  # average color
     average_color = list(map(round, average_color))  # convert average color to list
@@ -46,14 +46,17 @@ def get_color_name(img, color_space='hsv'):
 
         print(f'h value: {h}')
 
-        if (285 < h < 360) or (0 < h < 30):
-            return 'red'
-        elif 75 < h < 175:
-            return 'green'
-        elif 180 < h < 265:
-            return 'blue'
-        else:
-            raise Exception('H value not in range')
+        hsv_dict = yaml_colors.get('hsv')
+
+        for hsv_color in hsv_dict:
+            ranges_str = hsv_dict[hsv_color]['h']
+            ranges_str_split = ranges_str.split(',')
+            for h_range in ranges_str_split:
+                boundaries = h_range.split('-')
+                if int(boundaries[0]) < h < int(boundaries[1]):
+                    return hsv_color
+
+        raise Exception('H value not in range')
 
 
 # pick and place ball in corresponding hopper
@@ -132,7 +135,9 @@ while True:
         img = camera.get_frame(crop=True)  # retrieve current frame from camera
         save_image(img, 'test.jpg')  # save current frame to file (only for debugging, not used in program)
 
-        color_name = get_color_name(img, color_space='hsv')  # get color name from current frame
+        color_name = get_color_name(img,
+                                    config_file['colors'],
+                                    color_space='hsv')  # get color name from current frame
         hopper = config_file['colors']['hoppers_matching'][f'{color_name}']  # get corresponding hopper
         pick_place_ball(hopper)  # pick and place ball to corresponding hopper
 
