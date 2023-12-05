@@ -1,0 +1,67 @@
+# camera config
+camera:
+  source: 1
+  width: 1024
+  height: 768
+  exposure: -5
+
+# robot arm config
+dobot:
+  port: COM3
+  baudrate: 115200
+  end_effector_type: 1  # 1 -> suction cup
+
+# opcua config
+opcua:
+  url: opc.tcp://192.168.0.1:4840
+  user: robot
+  psw: Robot_Raspberry4
+  timeout_ms: 30000
+  node_ids:
+    should_run: ns=3;s="Operazione"
+    cb_hopper_1: ns=3;s="TD1_SFC"."Palline contenute"
+    cb_hopper_2: ns=3;s="TD2_SFC"."Palline contenute"
+    cb_hopper_3: ns=3;s="TD3_SFC"."Palline contenute"
+
+# ball colors
+colors:
+  # color space: hsv
+  hsv:
+    red:
+      h:
+    green:
+      h:
+    blue:
+      h:
+  hoppers_matching:
+    red: hopper_2
+    green: hopper_3
+    blue: hopper_1
+
+# coordinates
+coordinates:
+  ball_hover:
+    x: 173.8
+    y: 48.3
+    z: 60
+  ball_pick:
+    x: 173.8
+    y: 48.3
+    z: 3
+  home:
+    x: 0
+    y: 200
+    z: 110
+  hoppers:
+    hopper_1:
+      x: 125
+      y: 265
+      z: 110
+    hopper_2:
+      x: 0
+      y: 265
+      z: 110
+    hopper_3:
+      x: -140
+      y: 265
+      z: 110
