@@ -19,7 +19,7 @@ def save_image(img, file_name):
 
 
 # get color name from image
-def get_color_name(img, yaml_colors, color_space='hsv'):
+def get_color(img, yaml_colors, color_space='hsv'):
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # convert BGR image to RGB color space
     average_color = np.mean(img_rgb, axis=(0, 1))  # average color
     average_color = list(map(round, average_color))  # convert average color to list
@@ -135,10 +135,11 @@ while True:
         img = camera.get_frame(crop=True)  # retrieve current frame from camera
         save_image(img, 'test.jpg')  # save current frame to file (only for debugging, not used in program)
 
-        color_name = get_color_name(img,
-                                    config_file['colors'],
-                                    color_space='hsv')  # get color name from current frame
-        hopper = config_file['colors']['hoppers_matching'][f'{color_name}']  # get corresponding hopper
+        color = get_color(img,
+                          config_file['colors'],
+                          color_space='hsv')  # get color from current frame
+        hopper = config_file['colors']['hoppers_matching'][f'{color}']  # get corresponding hopper
+
         pick_place_ball(hopper)  # pick and place ball to corresponding hopper
 
         update_opcua(hopper)    # update OPC UA variables

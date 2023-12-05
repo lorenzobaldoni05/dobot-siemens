@@ -27,16 +27,19 @@ opcua:
 colors:
   # color space: hsv
   hsv:
-    red:
+    color_1:
+      tag: red
       h: 285-360,0-30
-    green:
+    color_2:
+      tag: green
       h: 75-175
-    blue:
+    color_3:
+      tag: blue
       h: 180-265
   hoppers_matching:
-    red: hopper_2
-    green: hopper_3
-    blue: hopper_1
+    color_1: hopper_2
+    color_2: hopper_3
+    color_3: hopper_1
 
 # coordinates
 coordinates:
