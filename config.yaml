@@ -1,8 +1,8 @@
 # camera config
 camera:
   source: 1
-  width: 1024
-  height: 768
+  width: 1920
+  height: 1080
   exposure: -5
 
 # robot arm config
