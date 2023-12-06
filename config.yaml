@@ -1,8 +1,8 @@
 # camera config
 camera:
   source: 1
-  width: 1920
-  height: 1080
+  width: 1024
+  height: 768
   exposure: -5
 
 # robot arm config
@@ -29,7 +29,7 @@ colors:
   hsv:
     color_1:
       tag: red
-      h: 285-360,0-30
+      h: 280-360,0-30
     color_2:
       tag: green
       h: 75-175
