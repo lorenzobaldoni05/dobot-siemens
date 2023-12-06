@@ -94,7 +94,7 @@ def pick_place_ball(hopper):
 def update_opcua(hopper):
     cb_hopper_node_id = config_file['opcua']['node_ids'][f'cb_{hopper}']        # node id of corresponding hopper
     _, cb_hopper = opcua_connection.read_value(cb_hopper_node_id)       # read value of contained balls in hopper
-    opcua_connection.write_value(cb_hopper_node_id, 'Int16', cb_hopper + 1)     # write updated value
+    opcua_connection.write_value(cb_hopper_node_id, 'Byte', cb_hopper + 1)     # write updated value
 
 
 dobot = Dobot(config_file['dobot']['port'])  # instantiate object of Dobot class
@@ -119,6 +119,8 @@ dobot.set_home_params(
 
 # set end effector type
 dobot.set_end_effector_type(config_file['dobot']['end_effector_type'], 0)
+
+# dobot.set_home_cmd(0)
 
 # move to home position
 dobot.set_ptp_cmd(1,
